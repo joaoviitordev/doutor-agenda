@@ -218,3 +218,9 @@ export const appointmentsTableRelations = relations(
     }),
   }),
 );
+
+// Re-exports for Better Auth adapter
+export const users = usersTable;
+export const sessions = sessionsTable;
+export const accounts = accountsTable;
+export const verifications = verificationsTable;
