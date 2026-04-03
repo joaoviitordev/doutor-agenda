@@ -11,13 +11,31 @@ import {
   PageTitle,
 } from "@/components/ui/page-container";
 
-const DoctorsPage = () => {
+import { headers } from "next/headers";
+import { redirect } from "next/navigation";
+import { auth } from "@/lib/auth";
+
+const DoctorsPage = async () => {
+  
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+  if (!session?.user) {
+    redirect("/authentication");
+  }
+  console.log(session.user.clinic);
+  if (!session.user.clinic) {
+    redirect("/clinic-form");
+  }
+
   return (
     <PageContainer>
       <PageHeader>
         <PageHeaderContent>
           <PageTitle>Médicos</PageTitle>
-          <PageDescription>Acesse uma visão geral detalhada dos médicos</PageDescription>
+          <PageDescription>
+            Acesse uma visão geral detalhada dos médicos
+          </PageDescription>
         </PageHeaderContent>
         <PageActions>
           <Button>

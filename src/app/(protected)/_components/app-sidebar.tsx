@@ -68,7 +68,7 @@ export function AppSidebar() {
   const session = authClient.useSession();
   const pathname = usePathname();
   const handleSignOut = async () => {
-     await authClient.signOut({
+    await authClient.signOut({
       fetchOptions: {
         onSuccess: () => {
           redirect("/authentication");
@@ -91,7 +91,11 @@ export function AppSidebar() {
                 const Icon = item.icon;
                 return (
                   <SidebarMenuItem key={item.url}>
-                    <SidebarMenuButton asChild tooltip={item.title} isActive={pathname === item.url}>
+                    <SidebarMenuButton
+                      asChild
+                      tooltip={item.title}
+                      isActive={pathname === item.url}
+                    >
                       <Link href={item.url}>
                         <Icon />
                         <span>{item.title}</span>
@@ -114,7 +118,9 @@ export function AppSidebar() {
                     <AvatarFallback>JV</AvatarFallback>
                   </Avatar>
                   <div>
-                    <p className="text-sm">{session.data?.user.clinic.name}</p>
+                    <p className="text-sm">
+                      {session.data?.user?.clinic?.name}
+                    </p>
                     <p className="text-muted-foreground text-sm">
                       {session.data?.user.email}
                     </p>
