@@ -36,7 +36,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
+import { usePathname } from "next/navigation";
 import Image from "next/image";
 import { redirect } from "next/navigation";
 import { authClient } from "@/lib/auth-client";
@@ -66,6 +66,7 @@ const items: { title: string; url: string; icon: LucideIcon }[] = [
 
 export function AppSidebar() {
   const session = authClient.useSession();
+  const pathname = usePathname();
   const handleSignOut = async () => {
      await authClient.signOut({
       fetchOptions: {
@@ -90,7 +91,7 @@ export function AppSidebar() {
                 const Icon = item.icon;
                 return (
                   <SidebarMenuItem key={item.url}>
-                    <SidebarMenuButton asChild tooltip={item.title}>
+                    <SidebarMenuButton asChild tooltip={item.title} isActive={pathname === item.url}>
                       <Link href={item.url}>
                         <Icon />
                         <span>{item.title}</span>
