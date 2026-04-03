@@ -35,6 +35,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { redirect } from "next/navigation";
@@ -64,6 +65,7 @@ const items: { title: string; url: string; icon: LucideIcon }[] = [
 ];
 
 export function AppSidebar() {
+  const session = authClient.useSession();
   const handleSignOut = async () => {
      await authClient.signOut({
       fetchOptions: {
@@ -106,7 +108,17 @@ export function AppSidebar() {
           <SidebarMenuItem>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="outline">Clínica</Button>
+                <SidebarMenuButton size="lg">
+                  <Avatar>
+                    <AvatarFallback>JV</AvatarFallback>
+                  </Avatar>
+                  <div>
+                    <p className="text-sm">{session.data?.user.clinic.name}</p>
+                    <p className="text-muted-foreground text-sm">
+                      {session.data?.user.email}
+                    </p>
+                  </div>
+                </SidebarMenuButton>
               </DropdownMenuTrigger>
               <DropdownMenuContent>
                 <DropdownMenuItem>
