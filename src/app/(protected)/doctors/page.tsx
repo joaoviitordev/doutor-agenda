@@ -14,9 +14,9 @@ import {
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
+import AddDoctorButton from "./_components/add-doctor-button";
 
 const DoctorsPage = async () => {
-  
   const session = await auth.api.getSession({
     headers: await headers(),
   });
@@ -37,12 +37,7 @@ const DoctorsPage = async () => {
             Acesse uma visão geral detalhada dos médicos
           </PageDescription>
         </PageHeaderContent>
-        <PageActions>
-          <Button>
-            <Plus />
-            Adicionar médico
-          </Button>
-        </PageActions>
+        <AddDoctorButton />
       </PageHeader>
       <PageContent>
         <h1>Médicos</h1>
