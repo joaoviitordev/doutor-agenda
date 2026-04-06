@@ -3,9 +3,12 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { NumericFormat } from "react-number-format";
+import { useState } from "react";
+import { toast } from "sonner";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
+import { upsertDoctor } from "@/actions/upsert-doctor";
 import {
   DialogContent,
   DialogDescription,
@@ -65,7 +68,11 @@ const formSchema = z
     },
   );
 
-const UpsertDoctorForm = () => {
+interface UpsertDoctorFormProps {
+  onSuccess?: () => void;
+}
+const UpsertDoctorForm = ({ onSuccess }: UpsertDoctorFormProps) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -79,8 +86,22 @@ const UpsertDoctorForm = () => {
     },
   });
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log(values);
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    setIsSubmitting(true);
+    try {
+      await upsertDoctor({
+        ...values,
+        availableFromWeekDay: parseInt(values.availableFromWeekDay),
+        availableToWeekDay: parseInt(values.availableToWeekDay),
+        appointmentPriceInCents: Math.round(values.appointmentPrice * 100),
+      });
+      toast.success("Médico adicionado com sucesso.");
+      onSuccess?.();
+    } catch {
+      toast.error("Erro ao adicionar médico.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -352,7 +373,9 @@ const UpsertDoctorForm = () => {
             )}
           />
           <DialogFooter>
-            <Button type="submit">Adicionar</Button>
+            <Button type="submit" disabled={isSubmitting}>
+              {isSubmitting ? "Adicionando..." : "Adicionar"}
+            </Button>
           </DialogFooter>
         </form>
       </Form>
