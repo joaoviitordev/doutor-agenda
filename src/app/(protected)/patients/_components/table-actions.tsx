@@ -1,5 +1,6 @@
+"use client";
+
 import { useState } from "react";
-import { patientsTable } from "@/db/schema";
 import { useAction } from "next-safe-action/hooks";
 import { toast } from "sonner";
 
@@ -15,10 +16,19 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { Dialog } from "@/components/ui/dialog";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { Button } from "@/components/ui/button";
 import { EditIcon, MoreVerticalIcon, TrashIcon } from "lucide-react";
+
+import { Button } from "@/components/ui/button";
+import { Dialog } from "@/components/ui/dialog";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { patientsTable } from "@/db/schema";
 import UpsertPatientForm from "./upsert-patient-form";
 
 interface PatientsTableActionsProps {
@@ -42,15 +52,16 @@ const PatientsTableActions = ({ patient }: PatientsTableActionsProps) => {
     deletePatientAction.execute({ id: patient.id });
   };
 
-  <>
-    <Dialog open={upsertDialogIsOpen} onOpenChange={setUpsertDialogIsOpen}>
-      <DropdownMenu>
-        <DropdownMenuTrigger>
-          <Button variant="ghost" size="icon">
-            <MoreVerticalIcon className="h-4 w-4" />
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent>
+  return (
+    <>
+      <Dialog open={upsertDialogIsOpen} onOpenChange={setUpsertDialogIsOpen}>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" size="icon" aria-label="Ações do paciente">
+              <MoreVerticalIcon className="h-4 w-4" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
           <DropdownMenuLabel>{patient.name}</DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuItem onClick={() => setUpsertDialogIsOpen(true)}>
@@ -82,16 +93,17 @@ const PatientsTableActions = ({ patient }: PatientsTableActionsProps) => {
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialog>
-        </DropdownMenuContent>
-      </DropdownMenu>
+          </DropdownMenuContent>
+        </DropdownMenu>
 
-      <UpsertPatientForm
-        isOpen={upsertDialogIsOpen}
-        patient={patient}
-        onSuccess={() => setUpsertDialogIsOpen(false)}
-      />
-    </Dialog>
-  </>;
+        <UpsertPatientForm
+          isOpen={upsertDialogIsOpen}
+          patient={patient}
+          onSuccess={() => setUpsertDialogIsOpen(false)}
+        />
+      </Dialog>
+    </>
+  );
 };
 
 export default PatientsTableActions;
