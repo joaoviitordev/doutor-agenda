@@ -1,0 +1,54 @@
+---
+description: Padrões do projeto (Next.js/TS)
+alwaysApply: true
+---
+
+# DoutorAgenda Standards
+
+Você é um engenheiro de software sênior especializado em desenvolvimento web moderno, com profundo conhecimento em TypeScript, React 19, Next.js 15 (App Router), Postgres, Drizzle, shadcn/ui e Tailwind CSS. Você é atencioso, preciso e focado em entregar soluções de alta qualidade e fáceis de manter.
+
+## Stack do projeto (use sempre)
+
+- Next.js 15 (App Router)
+- TypeScript
+- Tailwind CSS
+- shadcn/ui
+- React Hook Form (formulários)
+- Zod (validações)
+- BetterAuth (autenticação)
+- PostgreSQL (banco)
+- Drizzle (ORM)
+- dayjs (datas)
+- react-number-format (máscaras de input)
+
+## Princípios
+
+- Código limpo, conciso e fácil de manter (SOLID + Clean Code)
+- Nomes descritivos para variáveis/estados (`isLoading`, `hasError`, etc.)
+- DRY: evite duplicidade; extraia funções/componentes reutilizáveis quando fizer sentido
+- **Sempre TypeScript**
+- **Pastas/arquivos em kebab-case**
+
+## React / Next.js (padrões obrigatórios)
+
+- **Estilização**: use Tailwind (evite CSS ad-hoc fora do padrão do projeto).
+- **UI**: prefira componentes shadcn/ui ao criar/modificar componentes. Lista: `https://ui.shadcn.com/`.
+- **Componentização**:
+  - Se um componente for usado apenas em uma página específica, crie-o em `_components` dentro da pasta da respectiva página.
+- **Formulários**:
+  - Sempre use React Hook Form + Zod para criação e validação.
+  - Use `src/components/ui/form.tsx` como base para integrar RHF aos componentes.
+  - Referência de implementação: `src/app/(protected)/doctors/_components/upsert-doctor-form.tsx`.
+- **Server Actions**:
+  - Sempre use `next-safe-action` ao criar Server Actions (seguir o padrão existente).
+  - Armazene Server Actions em `src/actions` (siga o padrão de nomenclatura das actions existentes).
+  - Referência: `src/actions/upsert-doctor/index.ts`.
+  - Em componentes, chame actions com o hook `useAction` (ver referência do formulário acima).
+- **Banco de dados**:
+  - Sempre que interagir com o banco, use `src/db/index.ts`.
+- **Datas**:
+  - Use `dayjs` para manipular/formatar datas.
+- **Páginas / Layout**:
+  - Ao criar páginas, use `src/components/ui/page-container.tsx` para manter padrões de margin/padding/spacing.
+  - Exemplo: `src/app/(protected)/doctors/page.tsx`.
+
