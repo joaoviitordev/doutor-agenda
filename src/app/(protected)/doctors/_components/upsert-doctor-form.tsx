@@ -3,10 +3,10 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { NumericFormat } from "react-number-format";
-import { useState } from "react";
+import { useAction } from "next-safe-action/hooks";
 import { toast } from "sonner";
 import { z } from "zod";
-
+import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { upsertDoctor } from "@/actions/upsert-doctor";
 import {
@@ -70,11 +70,16 @@ const formSchema = z
   );
 
 interface UpsertDoctorFormProps {
+  isOpen: boolean;
   doctor?: typeof doctorsTable.$inferSelect;
   onSuccess?: () => void;
 }
-const UpsertDoctorForm = ({ doctor, onSuccess }: UpsertDoctorFormProps) => {
-  const [isSubmitting, setIsSubmitting] = useState(false);
+
+const UpsertDoctorForm = ({
+  doctor,
+  onSuccess,
+  isOpen,
+}: UpsertDoctorFormProps) => {
   const form = useForm<z.infer<typeof formSchema>>({
     shouldUnregister: true,
     resolver: zodResolver(formSchema),
@@ -91,23 +96,42 @@ const UpsertDoctorForm = ({ doctor, onSuccess }: UpsertDoctorFormProps) => {
     },
   });
 
-  const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    setIsSubmitting(true);
-    try {
-      await upsertDoctor({
-        ...values,
-        id: doctor?.id,
-        availableFromWeekDay: parseInt(values.availableFromWeekDay),
-        availableToWeekDay: parseInt(values.availableToWeekDay),
-        appointmentPriceInCents: Math.round(values.appointmentPrice * 100),
+  useEffect(() => {
+    if (isOpen) {
+      form.reset({
+        name: doctor?.name ?? "",
+        specialty: doctor?.specialty ?? "",
+        appointmentPrice: doctor?.appointmentPriceInCents
+          ? doctor.appointmentPriceInCents / 100
+          : 0,
+        availableFromWeekDay: doctor?.availableFromWeekDay?.toString() ?? "1",
+        availableToWeekDay: doctor?.availableToWeekDay?.toString() ?? "5",
+        availableFromTime: doctor?.availableFromTime ?? "",
+        availableToTime: doctor?.availableToTime ?? "",
       });
+    }
+  }, [isOpen, form, doctor]);
+
+  const upsertDoctorAction = useAction(upsertDoctor, {
+    onSuccess: () => {
       toast.success("Médico adicionado com sucesso.");
       onSuccess?.();
-    } catch {
+    },
+    onError: () => {
       toast.error("Erro ao adicionar médico.");
-    } finally {
-      setIsSubmitting(false);
-    }
+    },
+  });
+
+  const isSubmitting = upsertDoctorAction.status === "executing";
+
+  const onSubmit = (values: z.infer<typeof formSchema>) => {
+    upsertDoctorAction.execute({
+      ...values,
+      id: doctor?.id,
+      availableFromWeekDay: parseInt(values.availableFromWeekDay),
+      availableToWeekDay: parseInt(values.availableToWeekDay),
+      appointmentPriceInCents: values.appointmentPrice * 100,
+    });
   };
 
   return (
@@ -384,11 +408,7 @@ const UpsertDoctorForm = ({ doctor, onSuccess }: UpsertDoctorFormProps) => {
           />
           <DialogFooter>
             <Button type="submit" disabled={isSubmitting}>
-              {isSubmitting
-                ? "Salvando..."
-                : doctor
-                  ? "Salvar"
-                  : "Adicionar"}
+              {isSubmitting ? "Salvando..." : doctor ? "Salvar" : "Adicionar"}
             </Button>
           </DialogFooter>
         </form>

@@ -5,21 +5,22 @@ alwaysApply: true
 
 # DoutorAgenda Standards
 
-Você é um engenheiro de software sênior especializado em desenvolvimento web moderno, com profundo conhecimento em TypeScript, React 19, Next.js 15 (App Router), Postgres, Drizzle, shadcn/ui e Tailwind CSS. Você é atencioso, preciso e focado em entregar soluções de alta qualidade e fáceis de manter.
+Você é um engenheiro de software sênior especializado em desenvolvimento web moderno, com profundo conhecimento em TypeScript, React 19, Next.js 16 (App Router), Postgres, Drizzle, shadcn/ui e Tailwind CSS. Você é atencioso, preciso e focado em entregar soluções de alta qualidade e fáceis de manter.
 
 ## Stack do projeto (use sempre)
 
-- Next.js 15 (App Router)
-- TypeScript
-- Tailwind CSS
+- Next.js 16 (App Router) (`next@16.2.1`)
+- React 19 (`react@19.2.4`, `react-dom@19.2.4`)
+- TypeScript (`typescript@^5`)
+- Tailwind CSS (`tailwindcss@^4`)
 - shadcn/ui
-- React Hook Form (formulários)
-- Zod (validações)
-- BetterAuth (autenticação)
+- React Hook Form (formulários) (`react-hook-form@^7.72.0`)
+- Zod (validações) (`zod@^4.3.6`)
+- BetterAuth (autenticação) (`better-auth@^1.5.6`)
 - PostgreSQL (banco)
-- Drizzle (ORM)
-- dayjs (datas)
-- react-number-format (máscaras de input)
+- Drizzle (ORM) (`drizzle-orm@^0.45.2`)
+- dayjs (datas) (`dayjs@^1.11.20`)
+- react-number-format (máscaras de input) (`react-number-format@^5.4.5`)
 
 ## Princípios
 
