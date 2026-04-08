@@ -11,7 +11,7 @@ import { NumericFormat } from "react-number-format";
 import { toast } from "sonner";
 import { z } from "zod";
 
-import { addAppointment } from "@/actions/add-appointment";
+import { upsertAppointment } from "@/actions/upsert-appointment";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import {
@@ -42,10 +42,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { doctorsTable, patientsTable } from "@/db/schema";
+import { appointmentsTable, doctorsTable, patientsTable } from "@/db/schema";
 import { cn } from "@/lib/utils";
 
 const formSchema = z.object({
+  id: z.string().optional(),
   patientId: z.string().min(1, {
     message: "Paciente é obrigatório.",
   }),
@@ -63,28 +64,35 @@ const formSchema = z.object({
   }),
 });
 
-interface AddAppointmentFormProps {
+interface UpsertAppointmentFormProps {
   isOpen: boolean;
+  appointment?: typeof appointmentsTable.$inferSelect;
   patients: (typeof patientsTable.$inferSelect)[];
   doctors: (typeof doctorsTable.$inferSelect)[];
   onSuccess?: () => void;
 }
 
-const AddAppointmentForm = ({
+const UpsertAppointmentForm = ({
+  appointment,
   patients,
   doctors,
   onSuccess,
   isOpen,
-}: AddAppointmentFormProps) => {
+}: UpsertAppointmentFormProps) => {
+  const isEditing = !!appointment;
+
   const form = useForm<z.infer<typeof formSchema>>({
     shouldUnregister: true,
     resolver: zodResolver(formSchema),
     defaultValues: {
-      patientId: "",
-      doctorId: "",
-      appointmentPrice: 0,
-      date: undefined,
-      time: "",
+      id: appointment?.id || undefined,
+      patientId: appointment?.patientId || "",
+      doctorId: appointment?.doctorId || "",
+      appointmentPrice: appointment
+        ? appointment.appointmentPriceInCents / 100
+        : 0,
+      date: appointment ? new Date(appointment.date) : undefined,
+      time: appointment ? format(new Date(appointment.date), "HH:mm") : "",
     },
   });
 
@@ -108,28 +116,48 @@ const AddAppointmentForm = ({
 
   useEffect(() => {
     if (isOpen) {
-      form.reset({
-        patientId: "",
-        doctorId: "",
-        appointmentPrice: 0,
-        date: undefined,
-        time: "",
-      });
+      if (appointment) {
+        form.reset({
+          id: appointment.id,
+          patientId: appointment.patientId,
+          doctorId: appointment.doctorId,
+          appointmentPrice: appointment.appointmentPriceInCents / 100,
+          date: new Date(appointment.date),
+          time: format(new Date(appointment.date), "HH:mm"),
+        });
+      } else {
+        form.reset({
+          id: undefined,
+          patientId: "",
+          doctorId: "",
+          appointmentPrice: 0,
+          date: undefined,
+          time: "",
+        });
+      }
     }
-  }, [isOpen, form]);
+  }, [isOpen, appointment, form]);
 
-  const createAppointmentAction = useAction(addAppointment, {
+  const upsertAppointmentAction = useAction(upsertAppointment, {
     onSuccess: () => {
-      toast.success("Agendamento criado com sucesso.");
+      toast.success(
+        isEditing
+          ? "Agendamento atualizado com sucesso."
+          : "Agendamento criado com sucesso.",
+      );
       onSuccess?.();
     },
     onError: () => {
-      toast.error("Erro ao criar agendamento.");
+      toast.error(
+        isEditing
+          ? "Erro ao atualizar agendamento."
+          : "Erro ao criar agendamento.",
+      );
     },
   });
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
-    createAppointmentAction.execute({
+    upsertAppointmentAction.execute({
       ...values,
       appointmentPriceInCents: values.appointmentPrice * 100,
     });
@@ -140,13 +168,18 @@ const AddAppointmentForm = ({
   return (
     <DialogContent className="sm:max-w-[500px]">
       <DialogHeader>
-        <DialogTitle>Novo agendamento</DialogTitle>
+        <DialogTitle>
+          {isEditing ? "Editar agendamento" : "Novo agendamento"}
+        </DialogTitle>
         <DialogDescription>
-        Crie um novo agendamento para sua clínica.
+          {isEditing
+            ? "Atualize os dados do agendamento."
+            : "Crie um novo agendamento para sua clínica."}
         </DialogDescription>
       </DialogHeader>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+          {isEditing && <input type="hidden" {...form.register("id")} />}
           <FormField
             control={form.control}
             name="patientId"
@@ -305,10 +338,13 @@ const AddAppointmentForm = ({
           />
 
           <DialogFooter>
-          <Button type="submit" disabled={createAppointmentAction.isPending}>
-              {createAppointmentAction.isPending
-                ? "Criando..."
-                : "Criar agendamento"}
+            <Button
+              type="submit"
+              disabled={upsertAppointmentAction.isPending}
+            >
+              {upsertAppointmentAction.isPending
+                ? "Salvando..."
+                : "Salvar agendamento"}
             </Button>
           </DialogFooter>
         </form>
@@ -317,4 +353,4 @@ const AddAppointmentForm = ({
   );
 };
 
-export default AddAppointmentForm;
+export default UpsertAppointmentForm;
