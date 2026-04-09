@@ -21,8 +21,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR">
-      <body className={`${manrope.variable} antialiased`}>
+    <html lang="pt-BR" suppressHydrationWarning>
+      <body className={`${manrope.variable} antialiased`} suppressHydrationWarning>
         <ReactQueryProvider>
           <NuqsAdapter>{children}</NuqsAdapter>
         </ReactQueryProvider>
