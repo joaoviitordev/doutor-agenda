@@ -10,6 +10,7 @@ import { auth } from "@/lib/auth";
 import { actionClient } from "@/lib/next-safe-action";
 
 import { upsertAppointmentSchema } from "./schema";
+import { relative } from "node:path";
 
 export const upsertAppointment = actionClient
   .schema(upsertAppointmentSchema)
@@ -60,4 +61,5 @@ export const upsertAppointment = actionClient
       });
 
     revalidatePath("/appointments");
+    revalidatePath("/dashboard");
   });
