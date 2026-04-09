@@ -21,6 +21,10 @@ import { DatePicker } from "./_components/date-picker";
 import StatsCards from "./_components/stats-cards";
 import TopDoctors from "./_components/top-doctors";
 import TopSpecialties from "./_components/top-specialties";
+import { AppointmentsTable } from "../appointments/_components/appointments-table";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Calendar } from "@/components/ui/calendar";
+import { CalendarDaysIcon, CalendarIcon } from "lucide-react";
 
 interface DashboardPageProps {
   searchParams: Promise<{
@@ -53,6 +57,9 @@ const DashboardPage = async ({ searchParams }: DashboardPageProps) => {
     [totalDoctors],
     topDoctors,
     topSpecialties,
+    todayAppointments,
+    patients,
+    doctors,
   ] = await Promise.all([
     db
       .select({
@@ -127,6 +134,23 @@ const DashboardPage = async ({ searchParams }: DashboardPageProps) => {
       )
       .groupBy(doctorsTable.specialty)
       .orderBy(desc(count(appointmentsTable.id))),
+    db.query.appointmentsTable.findMany({
+      where: and(
+        eq(appointmentsTable.clinicId, session.user.clinic.id),
+        gte(appointmentsTable.date, dayjs().startOf("day").toDate()),
+        lte(appointmentsTable.date, dayjs().endOf("day").toDate()),
+      ),
+      with: {
+        patient: true,
+        doctor: true,
+      },
+    }),
+    db.query.patientsTable.findMany({
+      where: eq(patientsTable.clinicId, session.user.clinic.id),
+    }),
+    db.query.doctorsTable.findMany({
+      where: eq(doctorsTable.clinicId, session.user.clinic.id),
+    }),
   ]);
 
   const chartStartDate = dayjs().subtract(10, "days").startOf("day").toDate();
@@ -177,7 +201,23 @@ const DashboardPage = async ({ searchParams }: DashboardPageProps) => {
           <TopDoctors doctors={topDoctors} />
         </div>
         <div className="grid grid-cols-[2.25fr_1fr] gap-4">
-          {/* Tabela */}
+          <Card>
+            <CardHeader>
+              <div className="flex items-center gap-3">
+                <CalendarDaysIcon className="text-muted-foreground" />
+                <CardTitle className="text-base">
+                  Agendamentos de hoje
+                </CardTitle>
+              </div>
+            </CardHeader>
+            <CardContent>
+              <AppointmentsTable
+                data={todayAppointments}
+                patients={patients}
+                doctors={doctors}
+              />
+            </CardContent>
+          </Card>
           <TopSpecialties topSpecialties={topSpecialties} />
         </div>
       </PageContent>

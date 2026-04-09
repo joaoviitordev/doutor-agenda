@@ -1,6 +1,5 @@
 "use client";
 
-import * as React from "react";
 import {
   ColumnDef,
   flexRender,
@@ -67,7 +66,7 @@ export function DataTable<TData, TValue>({
           ) : (
             <TableRow>
               <TableCell colSpan={columns.length} className="h-24 text-center">
-                {emptyMessage}
+                Nenhum resultado encontrado.
               </TableCell>
             </TableRow>
           )}
