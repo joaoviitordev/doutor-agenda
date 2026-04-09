@@ -2,7 +2,7 @@
 
 import { CheckCircle2, Loader2 } from "lucide-react";
 import { useAction } from "next-safe-action/hooks";
-
+import { useRouter } from "next/navigation";
 import { createStripeCheckout } from "@/actions/create-stripe-checkout";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -11,12 +11,15 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 interface SubscriptionPlanProps {
   active?: boolean;
   className?: string;
+  userEmail: string;
 }
 
 export function SubscriptionPlan({
   active = false,
   className,
+  userEmail,
 }: SubscriptionPlanProps) {
+  const router = useRouter();
   const createStripeCheckoutAction = useAction(createStripeCheckout, {
     onSuccess: async ({ data }) => {
       if (!data?.url) {
@@ -25,6 +28,12 @@ export function SubscriptionPlan({
       window.location.assign(data.url);
     },
   });
+
+  const handleManagePlanClick = () => {
+    router.push(
+      `${process.env.NEXT_PUBLIC_STRIPE_CUSTOMER_PORTAL_URL}?prefilled_email=${userEmail}`,
+    );
+  };
   const features = [
     "Cadastro de até 3 médicos",
     "Agendamentos ilimitados",
@@ -74,7 +83,7 @@ export function SubscriptionPlan({
           <Button
             className="w-full"
             variant="outline"
-            onClick={active ? () => {} : handleSubscribeClick}
+            onClick={active ? handleManagePlanClick : handleSubscribeClick}
             disabled={createStripeCheckoutAction.isExecuting}
           >
             {createStripeCheckoutAction.isExecuting ? (
