@@ -46,7 +46,6 @@ export const auth = betterAuth({
     }),
   ],
   user: {
-    modelName: "usersTable",
     additionalFields: {
       stripeCustomerId: {
         type: "string",
@@ -65,15 +64,9 @@ export const auth = betterAuth({
       },
     },
   },
-  session: {
-    modelName: "sessionsTable",
-  },
-  account: {
-    modelName: "accountsTable",
-  },
-  verification: {
-    modelName: "verificationsTable",
-  },
+  session: {},
+  account: {},
+  verification: {},
   emailAndPassword: {
     enabled: true,
   },
