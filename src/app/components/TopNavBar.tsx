@@ -56,13 +56,19 @@ export default function TopNavBar() {
 
         {/* Right side */}
         <div className="flex items-center gap-4">
-          <button className="text-primary rounded-full px-5 py-2 text-sm font-semibold transition-all hover:bg-accent hover:text-accent-foreground">
+          <Link
+            href="/authentication?tab=login"
+            className="text-primary cursor-pointer rounded-full px-5 py-2 text-sm font-semibold transition-all hover:bg-accent hover:text-accent-foreground"
+          >
             Fazer Login
-          </button>
+          </Link>
 
-          <button className="bg-primary rounded-full px-5 py-2 text-sm font-semibold text-primary-foreground transition-all hover:shadow-md">
+          <Link
+            href="/authentication?tab=register"
+            className="bg-primary cursor-pointer rounded-full px-5 py-2 text-sm font-semibold text-primary-foreground transition-all hover:shadow-md"
+          >
             Criar Conta
-          </button>
+          </Link>
         </div>
       </div>
     </nav>

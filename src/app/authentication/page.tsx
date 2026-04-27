@@ -7,7 +7,14 @@ import { auth } from "@/lib/auth";
 import LoginForm from "./components/login-form";
 import SignUpForm from "./components/sign-up-form";
 
-const AuthenticationPage = async () => {
+type Props = {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+};
+
+const AuthenticationPage = async ({ searchParams }: Props) => {
+  const params = await searchParams;
+  const defaultTab = params.tab === "register" ? "register" : "login";
+
   const session = await auth.api.getSession({
     headers: await headers(),
   });
@@ -16,7 +23,7 @@ const AuthenticationPage = async () => {
   }
   return (
     <div className="flex h-screen w-screen items-center justify-center">
-      <Tabs defaultValue="login" className="w-100">
+      <Tabs defaultValue={defaultTab} key={defaultTab} className="w-100">
         <TabsList className="grid w-full grid-cols-2">
           <TabsTrigger value="login">Login</TabsTrigger>
           <TabsTrigger value="register">Criar conta</TabsTrigger>
