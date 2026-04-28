@@ -48,7 +48,7 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "babel-plugin-react-compiler": "1.0.0",
-    "drizzle-kit": "^0.18.1",
+    "drizzle-kit": "^0.31.10",
     "eslint": "^10",
     "eslint-config-next": "16.2.2",
     "eslint-plugin-simple-import-sort": "^13.0.0",
