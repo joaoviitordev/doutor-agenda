@@ -1,4 +1,4 @@
-import { ArrowUpRightIcon } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 export default function Hero() {
   return (
@@ -25,7 +25,7 @@ export default function Hero() {
           <button className="cursor-pointer px-8 py-4 bg-[#0B68F7] text-white font-bold rounded-full hover:shadow-lg hover:bg-[#0B68F7]/90 transition-all flex items-center justify-center gap-2 group shadow-md">
             Começar Agora
             <span className="text-lg group-hover:translate-x-1 transition-transform">
-              <ArrowUpRightIcon />
+              <ArrowRight />
             </span>
           </button>
           <button className="cursor-pointer px-8 py-4 bg-[#00affe]/10 text-[#0B68F7] border-2 border-[#0B68F7]/20 font-bold rounded-full hover:bg-[#00affe]/20 transition-all">
