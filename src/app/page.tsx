@@ -5,7 +5,7 @@ import TopNavBar from "./components/TopNavBar";
 import DoctorsPreview from "./components/DoctorsPreview";
 import PatientsPreview from "./components/PatientsPreview";
 import StatsBentoGrid from "./components/StatsBentoGrid";
-
+import CoreFeatures from "./components/CoreFeatures";
 
 export default function Home() {
   return (
@@ -17,7 +17,8 @@ export default function Home() {
         <AppointmentsPreview />
         <DoctorsPreview />
         <PatientsPreview />
-        <StatsBentoGrid />  
+        <StatsBentoGrid />
+        <CoreFeatures />  
       </main>
     </>
   );
