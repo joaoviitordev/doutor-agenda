@@ -1,3 +1,4 @@
+import DashboardPreview from "./components/DashboardPreview";
 import Hero from "./components/Hero";
 import TopNavBar from "./components/TopNavBar";
 
@@ -7,6 +8,7 @@ export default function Home() {
       <TopNavBar />
       <main className="pt-16">
         <Hero />
+        <DashboardPreview />
       </main>
     </>
   );
