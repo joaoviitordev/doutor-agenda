@@ -5,7 +5,7 @@ export default function CoreFeatures() {
         <section className="py-24 bg-white relative">
           <div className="max-w-7xl mx-auto px-8">
             <div className="text-center max-w-3xl mx-auto mb-20">
-              <h2 className="font-['Manrope'] text-4xl font-bold text-[#001b44] mb-6">
+              <h2 className="font-headline text-4xl font-bold text-[#001b44] mb-6">
                 Projetado para Profissionais de Elite
               </h2>
               <p className="text-[#434750]">

@@ -7,7 +7,7 @@ export default function Cta() {
                   backgroundSize: "32px 32px",
                 }}></div>
             <div className="relative z-10">
-              <h2 className="font-['Manrope'] text-4xl lg:text-5xl font-bold text-white mb-8">
+              <h2 className="font-headline text-4xl lg:text-5xl font-bold text-white mb-8">
                 Pronto para transformar sua gestão?
               </h2> 
               <p className="text-[#d8e2ff] text-lg lg:text-xl mb-12 max-w-2xl mx-auto">

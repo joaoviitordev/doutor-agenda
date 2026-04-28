@@ -1,12 +1,17 @@
 import type { Metadata } from "next";
 import { ReactQueryProvider } from "@/providers/react-query";
-import { Manrope } from "next/font/google";
+import { Manrope, Inter } from "next/font/google";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
 import "./globals.css";
 import { Toaster } from "sonner";
 
 const manrope = Manrope({
   variable: "--font-manrope",
+  subsets: ["latin"],
+});
+
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
 });
 
@@ -22,7 +27,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR" suppressHydrationWarning>
-      <body className={`${manrope.variable} antialiased`} suppressHydrationWarning>
+      <body className={`${manrope.variable} ${inter.variable} antialiased`} suppressHydrationWarning>
         <ReactQueryProvider>
           <NuqsAdapter>{children}</NuqsAdapter>
         </ReactQueryProvider>

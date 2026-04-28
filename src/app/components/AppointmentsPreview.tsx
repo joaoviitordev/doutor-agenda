@@ -33,7 +33,7 @@ export default function AppointmentsPreview() {
                 </div>
               </div>
               <div className="order-1 lg:order-1">
-                <h2 className="font-['Manrope'] text-4xl lg:text-5xl font-bold text-[#001b44] mb-6 leading-tight">
+                <h2 className="font-headline text-4xl lg:text-5xl font-bold text-[#001b44] mb-6 leading-tight">
                   Gestão de agendas sem conflitos.
                 </h2>
                 <p className="text-[#434750] text-lg leading-relaxed mb-10">

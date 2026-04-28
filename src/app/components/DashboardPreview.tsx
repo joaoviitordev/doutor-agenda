@@ -36,7 +36,7 @@ export default function DashboardPreview() {
             </div>
           </div>
           <div className="order-1 lg:order-2">
-            <h2 className="mb-6 font-['Manrope'] text-4xl leading-tight font-bold text-[#001b44] lg:text-5xl">
+            <h2 className="mb-6 font-headline text-4xl leading-tight font-bold text-[#001b44] lg:text-5xl">
               Potência e Precisão em cada detalhe.
             </h2>
             <p className="mb-10 text-lg leading-relaxed text-[#434750]">

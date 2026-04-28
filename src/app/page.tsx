@@ -7,6 +7,7 @@ import PatientsPreview from "./components/PatientsPreview";
 import StatsBentoGrid from "./components/StatsBentoGrid";
 import CoreFeatures from "./components/CoreFeatures";
 import Cta from "./components/Cta";
+import Footer from "./components/Footer";
 
 export default function Home() {
   return (
@@ -22,6 +23,7 @@ export default function Home() {
         <CoreFeatures />  
         <Cta />  
       </main>
+      <Footer />
     </>
   );
 }

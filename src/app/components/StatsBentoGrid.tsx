@@ -8,7 +8,7 @@ export default function StatsBentoGrid() {
               <div
                 className="col-span-12 md:col-span-8 bg-[#ffffff] p-10 rounded-[0.5rem] border border-[#c4c6d2]/10 shadow-sm flex flex-col justify-between">
                 <div>
-                  <h3 className="font-['Manrope'] text-3xl font-bold text-[#001b44] mb-4">
+                  <h3 className="font-headline text-3xl font-bold text-[#001b44] mb-4">
                     Tecnologia que Transforma
                   </h3>
                   <p className="text-[#434750] leading-relaxed max-w-lg">
@@ -73,7 +73,7 @@ export default function StatsBentoGrid() {
               <div
                 className="col-span-12 md:col-span-8 bg-white p-8 rounded-[0.5rem] shadow-sm border border-[#c4c6d2]/10 flex flex-col md:flex-row items-center gap-8">
                 <div className="flex-1">
-                  <h4 className="font-['Manrope'] font-bold text-xl text-[#001b44] mb-2">
+                  <h4 className="font-headline font-bold text-xl text-[#001b44] mb-2">
                     Suporte Especializado 24/7
                   </h4>
                   <p className="text-[#434750] text-sm">
