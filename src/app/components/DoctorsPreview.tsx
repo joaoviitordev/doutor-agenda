@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function DoctorsPreview() {
   return (
-    <section className="py-24 bg-[#f8f9fa]">
+    <section className="py-24 bg-[#ffffff]">
       <div className="max-w-7xl mx-auto px-8">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           <div className="relative order-2 lg:order-2">

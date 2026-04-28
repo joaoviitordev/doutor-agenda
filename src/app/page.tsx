@@ -3,6 +3,7 @@ import AppointmentsPreview from "./components/AppointmentsPreview";
 import Hero from "./components/Hero";
 import TopNavBar from "./components/TopNavBar";
 import DoctorsPreview from "./components/DoctorsPreview";
+import PatientsPreview from "./components/PatientsPreview";
 
 export default function Home() {
   return (
@@ -13,6 +14,7 @@ export default function Home() {
         <DashboardPreview />
         <AppointmentsPreview />
         <DoctorsPreview />
+        <PatientsPreview />
       </main>
     </>
   );
