@@ -25,7 +25,7 @@ O **Doutor Agenda** é uma aplicação que busca simular um produto real, permit
 - Visualização de serviços e especialidades  
 - Estrutura pensada para escalar como SaaS  
 
-Além disso, está sendo planejada uma **Landing Page**, que terá como função:
+Além disso, criei uma **Landing Page** para melhor experiência:
 
 - Apresentar o produto  
 - Explicar a proposta da plataforma  
@@ -98,19 +98,6 @@ Este projeto foi construído durante um bootcamp intensivo.
 
 ---
 
-## ⚠️ Status do projeto
-
-🚧 Em desenvolvimento / estudo  
-
-Pendências atuais:
-
-- Finalização da Landing Page  
-- Conclusão da integração com Stripe  
-- Melhorias gerais de UX/UI  
-- Refatorações de código  
-
----
-
 ## 📚 Principais aprendizados
 
 - Estruturação de aplicações full stack  
@@ -118,16 +105,6 @@ Pendências atuais:
 - Implementação de autenticação moderna (incluindo OAuth)  
 - Introdução a sistemas de pagamento (Stripe)  
 - Organização de um projeto com foco em SaaS  
-
----
-
-## 🎯 Próximos passos
-
-- Finalizar Landing Page  
-- Completar fluxo de pagamento com Stripe  
-- Melhorar regras de negócio  
-- Deploy e testes em ambiente real  
-- Evoluir arquitetura do projeto  
 
 ---
 
