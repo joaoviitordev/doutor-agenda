@@ -22,8 +22,12 @@ const AuthenticationPage = async ({ searchParams }: Props) => {
     redirect("/dashboard");
   }
   return (
-    <div className="flex h-screen w-screen items-center justify-center">
-      <Tabs defaultValue={defaultTab} key={defaultTab} className="w-100">
+    <div className="flex h-screen w-screen items-center justify-center px-4 py-8">
+      <Tabs
+        defaultValue={defaultTab}
+        key={defaultTab}
+        className="w-full max-w-md"
+      >
         <TabsList className="grid w-full grid-cols-2">
           <TabsTrigger value="login">Login</TabsTrigger>
           <TabsTrigger value="register">Criar conta</TabsTrigger>
