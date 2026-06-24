@@ -1,4 +1,4 @@
-# 🩺 Doutor Agenda
+# Doutor Agenda
 
 <p align="center">
   <img src="https://img.shields.io/badge/status-em%20desenvolvimento-yellow" />
@@ -16,7 +16,7 @@ Aplicação web desenvolvida com o objetivo de simular um **SaaS de agendamento 
 
 ---
 
-## 🚀 Sobre o projeto
+## Sobre o projeto
 
 O **Doutor Agenda** é uma aplicação que busca simular um produto real, permitindo:
 
@@ -33,7 +33,7 @@ Além disso, criei uma **Landing Page** para melhor experiência:
 
 ---
 
-## 🔐 Autenticação
+## Autenticação
 
 O sistema conta com:
 
@@ -44,7 +44,7 @@ Isso simula um cenário real de aplicação moderna, facilitando o acesso do usu
 
 ---
 
-## 💳 Integração com pagamentos
+## Integração com pagamentos
 
 Foi iniciada a integração com o **Stripe**, com o objetivo de simular um modelo SaaS.
 
@@ -56,37 +56,37 @@ Foi iniciada a integração com o **Stripe**, com o objetivo de simular um model
 
 ---
 
-## 🛠️ Tecnologias utilizadas
+## Tecnologias utilizadas
 
-### 🎨 Frontend
+### Frontend
 - Next.js  
 - React  
 - TypeScript  
 - Tailwind CSS  
 
-### ⚙️ Backend
+### Backend
 - Node.js  
 - API Routes (Next.js)  
 
-### 🗄️ Banco de dados
+### Banco de dados
 - PostgreSQL  
 - **Drizzle ORM**
 
-### 🔐 Autenticação
+### Autenticação
 - Better Auth (ou similar)  
 - OAuth (Google)
 
-### 💳 Pagamentos
+### Pagamentos
 - Stripe (integração parcial)
 
-### 🧩 Outros
+### Outros
 - Git & GitHub  
 - Arquitetura baseada em componentes  
 - Integração full stack  
 
 ---
 
-## 🧠 Contexto de aprendizado
+## Contexto de aprendizado
 
 Este projeto foi construído durante um bootcamp intensivo.
 
@@ -98,7 +98,7 @@ Este projeto foi construído durante um bootcamp intensivo.
 
 ---
 
-## 📚 Principais aprendizados
+## Principais aprendizados
 
 - Estruturação de aplicações full stack  
 - Integração com banco de dados usando ORM  
@@ -108,7 +108,7 @@ Este projeto foi construído durante um bootcamp intensivo.
 
 ---
 
-## 📌 Considerações finais
+## Considerações finais
 
 Esse projeto representa meu primeiro contato com a construção de um SaaS completo.
 
@@ -120,7 +120,7 @@ Mesmo sem domínio total de todos os conceitos, foi fundamental para:
 
 ---
 
-## 📬 Contato
+## Contato
 
 Caso queira conversar, dar feedback ou oportunidades:
 
